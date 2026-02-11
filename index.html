@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MinePyramid 3D - dev Edition</title>
+    <title>MineWorld 3D: dev Edition</title>
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
@@ -15,23 +15,36 @@
 </head>
 <body>
 
-    <div id="ui-container">
-        <div class="top-bar">
-            <div class="stat-box">
-                <span class="label">БЛОКИ:</span>
-                <span id="block-count">0</span>
+    <div id="ui-layer">
+        
+        <div class="hud-top">
+            <div class="stats">
+                <div class="stat-item">⛏️ <span id="block-count">0</span></div>
+                <div id="location-display">ДОМ</div>
             </div>
-            <div class="stat-box">
-                <span id="location-name">ДЕРЕВНЯ</span>
+            
+            <div id="health-bar">
+                <span class="heart" id="h1">❤️</span>
+                <span class="heart" id="h2">❤️</span>
+                <span class="heart" id="h3">❤️</span>
+                <span class="heart" id="h4">❤️</span>
+                <span class="heart" id="h5">❤️</span>
             </div>
         </div>
 
-        <div class="bottom-bar">
-            <button id="shop-btn" class="game-btn">МАГАЗИН (50 ₴)</button>
-            <button id="premium-btn" class="game-btn star-btn">⭐ PREMIUM (250 Stars)</button>
+        <div id="game-alerts">
+            <div id="death-screen" class="hidden">
+                <h1>ТЫ ПОГИБ!</h1>
+                <p>Восстановление в доме...</p>
+            </div>
         </div>
-        
-        <div id="hint">НАЖМИ НА ДВЕРЬ, ЧТОБЫ ВОЙТИ</div>
+
+        <div class="hud-bottom">
+            <div class="shop-buttons">
+                <button id="buy-premium" class="btn-premium">⭐ PREMIUM (50 Stars)</button>
+            </div>
+        </div>
+
     </div>
 
     <div id="game-canvas"></div>
@@ -40,4 +53,3 @@
 
 </body>
 </html>
-
