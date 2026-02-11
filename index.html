@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MinePyramid 3D - dev Edition</title>
+    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="ui-container">
+        <div class="top-bar">
+            <div class="stat-box">
+                <span class="label">БЛОКИ:</span>
+                <span id="block-count">0</span>
+            </div>
+            <div class="stat-box">
+                <span id="location-name">ДЕРЕВНЯ</span>
+            </div>
+        </div>
+
+        <div class="bottom-bar">
+            <button id="shop-btn" class="game-btn">МАГАЗИН (50 ₴)</button>
+            <button id="premium-btn" class="game-btn star-btn">⭐ PREMIUM (250 Stars)</button>
+        </div>
+        
+        <div id="hint">НАЖМИ НА ДВЕРЬ, ЧТОБЫ ВОЙТИ</div>
+    </div>
+
+    <div id="game-canvas"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
