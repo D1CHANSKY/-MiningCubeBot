@@ -1,4 +1,4 @@
-/* Обнуляем отступы и убираем скролл */
+/* Базовые настройки экрана */
 body, html {
     margin: 0;
     padding: 0;
@@ -8,9 +8,10 @@ body, html {
     background-color: #000;
     font-family: 'Press Start 2P', cursive;
     color: #fff;
+    user-select: none;
 }
 
-/* Контейнер для 3D графики (на заднем плане) */
+/* Слой для 3D (фон) */
 #game-canvas {
     position: fixed;
     top: 0;
@@ -21,101 +22,113 @@ body, html {
 }
 
 /* Слой интерфейса (поверх 3D) */
-#ui-container {
+#ui-layer {
     position: relative;
     z-index: 10;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    pointer-events: none; /* Пропускает клики сквозь пустые зоны к 3D объектам */
+    pointer-events: none; /* Клики проходят сквозь пустоту к 3D-объектам */
 }
 
-/* Верхняя панель со статистикой */
-.top-bar {
+/* Верхняя панель (ХП и Блоки) */
+.hud-top {
     padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    pointer-events: auto; /* Возвращаем кликабельность элементам */
-}
-
-.stat-box {
-    background: rgba(0, 0, 0, 0.7);
-    border: 3px solid #555;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 10px;
-    line-height: 1.5;
-}
-
-.label {
-    color: #aaa;
-    display: block;
-    margin-bottom: 5px;
-}
-
-/* Нижняя панель с кнопками */
-.bottom-bar {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
     pointer-events: auto;
 }
 
-/* Общий стиль игровых кнопок */
-.game-btn {
-    font-family: 'Press Start 2P', cursive;
-    padding: 15px;
-    border: 4px solid #000;
-    background: #7a7a7a;
-    color: #fff;
-    cursor: pointer;
-    font-size: 10px;
-    box-shadow: inset -4px -4px 0px #4a4a4a, inset 4px 4px 0px #9a9a9a;
-}
-
-.game-btn:active {
-    transform: translateY(2px);
-    box-shadow: inset 2px 2px 0px #4a4a4a;
-}
-
-/* Кнопка Premium */
-.star-btn {
-    background: linear-gradient(180deg, #62b3ff 0%, #0077ff 100%);
-    box-shadow: inset -4px -4px 0px #003a80, inset 4px 4px 0px #86c5ff;
-}
-
-/* Подсказка по центру */
-#hint {
-    position: absolute;
-    top: 30%;
-    width: 100%;
-    text-align: center;
-    font-size: 8px;
-    color: #ffff00;
-    text-shadow: 2px 2px #000;
-    animation: blink 1s infinite;
-}
-
-/* Анимация мигания подсказки */
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* Вылетающий текст при клике (создается через JS) */
-.floating-text {
-    position: absolute;
-    pointer-events: none;
-    color: #ffd700;
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
     font-size: 12px;
-    text-shadow: 2px 2px #000;
-    animation: moveUp 0.8s ease-out forwards;
-    z-index: 100;
 }
 
-@keyframes moveUp {
-    to { transform: translateY(-50px); opacity: 0; }
+#health-bar {
+    display: flex;
+    gap: 8px;
+    font-size: 18px;
+}
+
+.heart {
+    filter: drop-shadow(2px 2px 0px #000);
+    transition: transform 0.2s;
+}
+
+.heart.empty {
+    filter: grayscale(1) opacity(0.3);
+}
+
+/* Экран смерти */
+#game-alerts {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+#death-screen {
+    background: rgba(139, 0, 0, 0.8);
+    padding: 40px;
+    border: 6px solid #000;
+    animation: pulse 1s infinite;
+}
+
+#death-screen h1 {
+    font-size: 20px;
+    color: #ff0000;
+    text-shadow: 3px 3px 0px #000;
+}
+
+/* Нижняя панель */
+.hud-bottom {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.btn-premium {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(180deg, #62b3ff 0%, #0077ff 100%);
+    border: 4px solid #000;
+    color: white;
+    padding: 15px;
+    font-size: 10px;
+    cursor: pointer;
+    box-shadow: inset -4px -4px 0px #003a80;
+}
+
+.btn-premium:active {
+    transform: scale(0.95);
+}
+
+/* Вспомогательные классы */
+.hidden {
+    display: none !important;
+}
+
+/* Анимации */
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    20% { transform: translate(-3px, 0px) rotate(-1deg); }
+    40% { transform: translate(3px, 2px) rotate(1deg); }
+    60% { transform: translate(-1px, -1px) rotate(1deg); }
+    80% { transform: translate(-3px, 1px) rotate(-1deg); }
+    100% { transform: translate(1px, -2px) rotate(0deg); }
+}
+
+.damage-shake {
+    animation: shake 0.3s;
 }
 
